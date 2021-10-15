@@ -9,7 +9,13 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true
     },
-    name: {
+    name1: {
+      type: DataTypes.STRING(100)
+    },
+    name2: {
+      type: DataTypes.STRING(100)
+    },
+    name3: {
       type: DataTypes.STRING(100)
     },
   }, {

@@ -5,9 +5,10 @@ const Promise = require('bluebird');
 
 let db = {};
 const MODEL_PATH = `${__dirname}/testDinh/models3`;
-let sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: './database.db'
+let sequelize = new Sequelize("newdatabase2", "root", "", {
+    host: "localhost",
+    port: 3307,
+    dialect: 'mysql',
 });
 
 fs.readdir(MODEL_PATH, async (err, files) => {

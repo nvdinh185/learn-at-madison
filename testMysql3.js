@@ -5,7 +5,7 @@ const Promise = require('bluebird');
 
 let db = {};
 const MODEL_PATH = `${__dirname}/testDinh/models3`;
-let sequelize = new Sequelize("test-db", "root", "123456", {
+let sequelize = new Sequelize("test-db-new", "root", "123456", {
     host: "localhost",
     pool: {
         max: 5,
@@ -81,6 +81,21 @@ fs.readdir(MODEL_PATH, async (err, files) => {
         const Bars = await db.Bars.findOne({ where: { id: 1 } });
         console.log(Bars.dataValues);
 
-        await sequelize.close();
+        const transaction = await db.sequelize.transaction();
+        let options = {
+            where: { id: 2 },
+            /*include: ['foos',
+                {
+                    model: this.db.Foos,
+                    as: 'foos',
+                    //include: ['Attendee', 'TicketSetting']
+                }
+            ],*/
+            //transaction
+        };
+        const bars = await db.Bars.findOne(options);
+        console.log(bars.dataValues);
+
+        await db.sequelize.close();
     }
 });

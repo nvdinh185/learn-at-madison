@@ -75,15 +75,15 @@ fs.readdir(MODEL_PATH, async (err, files) => {
         });
 
         // CRUD
-        /*await db.Event.create({ title: 'HITB Event 5', eventPageUrl: 'hitb_event_5' });
+        await db.Event.create({ title: 'HITB Event 5', eventPageUrl: 'hitb_event_5' });
         await db.Event.update(
             { title: 'HITB Event 5 edit', eventPageUrl: 'hitb_event_5 edit' },
             { where: { id: 5 } }
-        );*/
+        );
         //select data
         const event = await db.Event.findOne({ where: { id: 1 } });
         console.log(event.dataValues);
-        /*const message = await db.Message.findOne({ where: { id: 1 } });
+        const message = await db.Message.findOne({ where: { id: 1 } });
         console.log(message);
         const ticketType = await db.TicketType.findOne({ where: { id: 1 } });
         console.log(ticketType.dataValues);
@@ -103,21 +103,7 @@ fs.readdir(MODEL_PATH, async (err, files) => {
 
         // count
         const count = await db.Event.count({ where: { timeZone: 8 } });
-        console.log(count);*/
-
-        /*let options = {
-            where: { id: 1 },
-            include: ['foos',
-                {
-                    model: this.db.Foos,
-                    as: 'foos',
-                    //include: ['Attendee', 'TicketSetting']
-                }
-            ],
-            //transaction
-        };*/
-        /*const bars = await db.Bars.findOne({ where: { id: 1 } });
-        console.log(bars.dataValues);*/
+        console.log(count);
 
         await sequelize.close();
     }
