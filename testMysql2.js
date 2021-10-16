@@ -4,7 +4,7 @@ const path = require('path');
 const Promise = require('bluebird');
 
 const MODEL_PATH = `${__dirname}/testDinh/models2`;
-let sequelize = new Sequelize("test-db-new", "root", "123456", {
+const sequelize = new Sequelize("test-db-new", "root", "123456", {
     host: "localhost",
     pool: {
         max: 5,

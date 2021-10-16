@@ -5,10 +5,20 @@ const Promise = require('bluebird');
 
 let db = {};
 const MODEL_PATH = `${__dirname}/testDinh/models3`;
-let sequelize = new Sequelize("newdatabase2", "root", "", {
+let sequelize = new Sequelize("newdatabase2", "root", "123456", {
     host: "localhost",
-    port: 3307,
+    // port: 3307,
+    // dialect: 'mysql',
+    pool: {
+        max: 5,
+        min: 0,
+        idle: 10000
+    },
     dialect: 'mysql',
+    operatorsAliases: false,
+    define: {
+        timestamps: true
+    }
 });
 
 fs.readdir(MODEL_PATH, async (err, files) => {
@@ -71,22 +81,6 @@ fs.readdir(MODEL_PATH, async (err, files) => {
         const Bars = await db.Bars.findOne({ where: { id: 1 } });
         console.log(Bars.dataValues);
 
-        /*const transaction = await db.sequelize.transaction();
-        let options = {
-            where: { id: 2 },
-            /*include: ['foos',
-                {
-                    model: this.db.Foos,
-                    as: 'foos',
-                    //include: ['Attendee', 'TicketSetting']
-                }
-            ],
-            //transaction
-        };
-        const bars = await db.Bars.findOne(options);
-        console.log(bars.dataValues);*/
-
-        const attributes = ['id', 'name1'];
         const options = {
             where: { id: 1 },
             attributes: ['id', 'name1'],
@@ -99,9 +93,7 @@ fs.readdir(MODEL_PATH, async (err, files) => {
                     attributes: ['id', 'name2']
                 }
             ],
-            // paranoid: false,
             // order: [[{ model: age, as: 'age' }, 'username', 'DESC']]
-            //transaction
         };
 
         const foosData = await db.Bars.findAll(options);
