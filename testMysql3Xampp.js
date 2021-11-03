@@ -3,33 +3,23 @@ const fs = require('fs');
 const path = require('path');
 const Promise = require('bluebird');
 
-let db = {};
 const MODEL_PATH = `${__dirname}/testDinh/models3`;
-let sequelize = new Sequelize("newdatabase2", "root", "123456", {
+const sequelize = new Sequelize("newdatabase", "root", "", {
     host: "localhost",
-    // port: 3307,
-    // dialect: 'mysql',
-    pool: {
-        max: 5,
-        min: 0,
-        idle: 10000
-    },
+    port: 3306,
     dialect: 'mysql',
-    operatorsAliases: false,
-    define: {
-        timestamps: true
-    }
 });
 
 fs.readdir(MODEL_PATH, async (err, files) => {
     if (err) {
         console.log(err);
     } else {
+        const db = {};
         // fetch all files in models folder
         files.forEach(file => {
             if (file.indexOf('.') !== 0 && file !== 'index.js' && file.slice(-3) === '.js') {
                 // console.log(path.join(`${__dirname}/` + file));
-                let model = sequelize.import(path.join(MODEL_PATH, file));
+                const model = sequelize.import(path.join(MODEL_PATH, file));
                 // console.log(`model name: ${JSON.stringify(model.name)} == ${path.join(`${__dirname}/`, file)}`);
                 db[model.name] = model;
             }
@@ -96,8 +86,8 @@ fs.readdir(MODEL_PATH, async (err, files) => {
             // order: [[{ model: age, as: 'age' }, 'username', 'DESC']]
         };
 
-        const foosData = await db.Bars.findAll(options);
-        console.log(foosData[0].dataValues);
+        const data = await db.Bars.findAll(options);
+        console.log(JSON.stringify(data, null, 2));
 
         await db.sequelize.close();
     }

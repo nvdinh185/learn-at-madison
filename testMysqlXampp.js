@@ -1,21 +1,21 @@
 'use strict';
 
-var mysql = require('mysql');
+const mysql = require('mysql');
 
-var connection = mysql.createConnection({
+const connection = mysql.createConnection({
     host: 'localhost',
-    port: 3307,
+    port: 3306,
     user: 'root',
     password: '',
-    database: 'mydb',
+    database: 'vinaenter',
 });
-console.log(connection.query);
+// console.log(connection.query);
 connection.connect(function (err) {
     if (err) throw err;
     console.log("Connected!");
 });
 connection.query(
-    "SELECT * FROM users1",
+    "SELECT * FROM users",
     function (err, results, fields) {
         console.log(err);
         console.log(results);
