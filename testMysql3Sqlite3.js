@@ -3,9 +3,9 @@ const fs = require('fs');
 const path = require('path');
 const Promise = require('bluebird');
 
-let db = {};
+const db = {};
 const MODEL_PATH = `${__dirname}/testDinh/models3`;
-let sequelize = new Sequelize({
+const sequelize = new Sequelize({
     dialect: 'sqlite',
     storage: './database.db'
 });
@@ -47,7 +47,7 @@ fs.readdir(MODEL_PATH, async (err, files) => {
             'Bars',
         ];
 
-        // console.log(123);
+        console.log(123);
         await db.sequelize.transaction(async t => {
             let options = { raw: true, transaction: t };
             await db.sequelize.query('SET FOREIGN_KEY_CHECKS = 0', null, options)
@@ -63,7 +63,7 @@ fs.readdir(MODEL_PATH, async (err, files) => {
                 .then(() => db.sequelize.query('SET FOREIGN_KEY_CHECKS = 1', null, options));
         });
 
-        // console.log(456);
+        console.log(456);
         //select data
         const Foos = await db.Foos.findOne({ where: { id: 1 } });
         console.log(Foos.dataValues);
